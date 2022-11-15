@@ -1,0 +1,103 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "github.com/litsoftware/litmedia/entrance/http/proto";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/any.proto";
+import "google/protobuf/descriptor.proto";
+
+message ErrorData {
+    string message = 1;
+    int32 code = 2;
+}
+
+message HttpBody {
+    // The HTTP Content-Type header value specifying the content type of the body.
+    string content_type = 1;
+
+    // The HTTP request/response body as raw binary.
+    bytes data = 2;
+
+    // Application specific response metadata. Must be set in the first response
+    // for streaming APIs.
+    repeated google.protobuf.Any extensions = 3;
+}
+
+message FileDownloadRequest {
+    string media_id = 1;
+    string token = 2 [json_name = "token"];
+}
+
+message FileDownloadResponse {
+    MediaInfo info = 1;
+    bytes content = 2 [json_name = "content"];
+    string message = 3 [json_name = "message"];
+    DownloadStatusCode code = 4 [json_name = "code"];
+    string save_path = 5 [json_name = "save_path"];
+}
+
+message HealthCheckRequest {
+    string service = 1 [json_name = "service"];
+}
+
+message HealthCheckResponse {
+    enum ServingStatus {
+        UNKNOWN = 0;
+        SERVING = 1;
+        NOT_SERVING = 2;
+        SERVICE_UNKNOWN = 3;
+    }
+
+    ServingStatus status = 2 [json_name = "status"];
+}
+
+message FileUploadRequest {
+    bytes content = 1 [json_name = "content"];
+    string filename = 2 [json_name = "filename"];
+    string save_path = 3 [json_name = "save_path"];
+    int32 level = 4 [json_name = "level"];
+    int64 out_user_id = 5 [json_name = "out_user_id"];
+    int64 company_id = 6 [json_name = "company_id"];
+    int64 size = 7 [json_name = "size"];
+}
+
+enum UploadStatusCode {
+    UploadStatusCodeUnknown = 0;
+    Ok = 1;
+    Failed = 2;
+}
+
+enum DownloadStatusCode {
+    DownloadStatusCodeUnknown = 0;
+    Download_Ok = 1;
+    Download_Failed = 2;
+}
+
+message MediaInfo {
+    string id = 1 [json_name = "id"];
+    string url = 2 [json_name = "url"];
+    string filename = 3 [json_name = "filename"];
+    string file_class = 4 [json_name = "file_class"];
+    string ext = 5 [json_name = "ext"];
+    string mime = 6 [json_name = "mime"];
+    string hash = 7 [json_name = "hash"];
+}
+
+message FileUploadResponse {
+    string Message = 1 [json_name = "message"];
+    MediaInfo Media = 3 [json_name = "media"];
+    UploadStatusCode Code = 2 [json_name = "code"];
+}
+
+message StsTokenRequest {
+    int64 ttl = 1 [json_name = "ttl"];
+    int64 user_id = 2 [json_name = "user_id"];
+    int64 out_user_id = 5 [json_name = "out_user_id"];
+    int64 company_id = 6 [json_name = "company_id"];
+    repeated string resource = 3 [json_name = "resource"];
+}
+
+message StsTokenResponse {
+    string sts_token = 1 [json_name = "sts_token"];
+}

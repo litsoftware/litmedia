@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package types;
+option go_package = "app/types";
+
+
+enum MediaType {
+  MediaType_UNUSED = 0;
+  Image = 1; // Image, e.g. jpeg, png, gif, bmp
+  Audio = 2; // Audio, e.g. mp3, wav
+  Video = 3; // Video, e.g. mp4, avi
+  OfficeDocument = 4; // office document, e.g. doc, xls, ppt
+  Other = 5;
+  Archive = 6; // Compressed file, e.g: .zip, .rar, .7z
+  ExecutableFile = 7; // Executable file, e.g: .exe, .apk, .ipa, .dmg, .jar
+  Text = 8; // Text, e.g: .txt, .log, .md, .xml, .json, csv
+  PDF = 9; // PDF, e.g: .pdf
+}
+
+enum MediaStatus {
+  MediaStatus_UNUSED = 0;
+  Valid = 1;
+  InValid = 2;
+  Deleted = 3;
+}
+
+enum MediaReasonType {
+  MediaReasonType_UNUSED = 0;
+  Risky = 1; // 违规
+  UserOpt = 2; // 用户自己操作
+  AuditFailure = 3; // 外部平台审核失败, 如上传微信失败等，记录失败原因
+}
+
+enum MediaLevel {
+  MediaLevel_UNUSED = 0;
+  General = 1;
+  Sensitive = 2;
+}
+
+message OutUser {
+  int64 id = 1 [json_name = "id"];
+  int64 company_id = 2 [json_name = "company_id"];
+}

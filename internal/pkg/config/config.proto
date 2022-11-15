@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package config;
+option go_package = "github.com/litsoftware/litmedia/internal/pkg/config";
+
+message OssConfig {
+  string endpoint = 1 [json_name="endpoint"];
+  string endpoint_internal = 2 [json_name="endpoint_internal"];
+  string endpoint_vpc = 3 [json_name="endpoint_vpc"];
+
+  // 直连的配置
+  string access_key_id = 4 [json_name="access_key_id"];
+  string access_key_secret = 6 [json_name="access_key_secret"];
+
+  // sts 临时配置
+  string tmp_access_key_id = 5 [json_name="tmp_access_key_id"];
+  string tmp_access_key_secret = 7 [json_name="tmp_access_key_secret"];
+  string tmp_security_token = 11 [json_name="tmp_security_token"];
+
+  string region = 12 [json_name="region"];
+  string bucket = 8 [json_name="bucket"];
+  string arn = 9 [json_name="arn"];
+  string session_name = 10 [json_name="session_name"];
+  string expiration  = 14 [json_name="expiration"];
+  int32 ttl  = 15 [json_name="ttl"];
+}
+
+message MysqlConfig {
+  string host = 1 [json_name="host"];
+  string port = 2 [json_name="port"];
+  string database = 3 [json_name="database"];
+  string user = 4 [json_name="user"];
+  string password = 5 [json_name="password"];
+}
+
+message RedisConfig {
+  string host = 1 [json_name="host"];
+  int32 port = 2 [json_name="port"];
+  string database = 3 [json_name="database"];
+}
+
+message ServerConfig {
+  string address = 1 [json_name="host"];
+  int32 timeout = 2 [json_name="port"];
+}
+
+message AppConfig {
+  string timezone = 2 [json_name="timezone"];
+  string env = 4 [json_name="env"];
+  string debug = 6 [json_name="debug"];
+  string app_public_key = 8 [json_name="app_public_key"];
+  string app_private_key = 9 [json_name="app_private_key"];
+  string cache_prefix = 12 [json_name="cache_prefix"];
+  string domain = 13 [json_name="domain"];
+}
