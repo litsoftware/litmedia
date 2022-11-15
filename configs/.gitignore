@@ -1,5 +1,2 @@
-app_test.toml
-app.toml
+app.yaml
 *.pem
-alipay/
-facilitators.lock
